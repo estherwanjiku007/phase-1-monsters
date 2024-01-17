@@ -1,43 +1,44 @@
-const theId=document.getElementById("monster-container")
-//const myForm=document.querySelector("form") 
-document.addEventListener("DOMContentLoaded",()=>myFunction(data))//=>{
-    //const myDiv=document.getElementById("create-monster")
-     //const myForm=document.createElement("form")
+document.addEventListener("DOMContentLoaded",myFunction)//=>{
+    const myDiv=document.getElementById("create-monster")
     //myDiv.appendChild(myForm)
 //})
-function myFunction(data){
-const theId=document.getElementById("monster-container")
+function myFunction(){
+const theMonterContainer=document.getElementById("monster-container")
 fetch ("http://localhost:3000/monsters")
 .then(response=>response.json())
-.then((data) =>{
+.then((data)=>
     data.forEach( data => {
-      let newId=document.createElement("div")
+      let newDiv=document.createElement("div")
       const myName=document.createElement("h4")
       myName.textContent=data.name
-      theId.appendChild(myName)
+      newDiv.appendChild(myName)
       const myDesc=document.createElement("h5")
       myDesc.textContent=data.description
-      theId.appendChild(myDesc)
+      newDiv.appendChild(myDesc)
       const  myAge=document.createElement("p")
       myAge.textContent=data.age
-     theId.appendChild(myAge)
-     newId.appendChild(theId)
-    const myForm=document.querySelector("form")
-    myForm.addEventListener("submit",(e))
-    e.preventDefault()
-    
-  addMonster(monsterObj)
-}) 
-})
+     newDiv.appendChild(myAge)
+     theMonterContainer.appendChild(newDiv)
+    const myForm=document.getElementById("myForm")
+    myForm.addEventListener("submit",()=>{
+      const allNames=document.getElementById("name") .value
+     const allAges=document.getElementById("age") .value
+      const allDesc=document.getElementById("description") .value
+    addMonster(allNames,allAges,allDesc)
+    })
+    //const theButton=document.getElementById("create monster")
+    //theButton.addEventListener("click",addMonster)
+    }) 
+)
 }   
-function addMonster(){
-  //let allNames=document.getElementById("name") .textContent
- // let allAges=document.getElementById("age") .textContent
-  //const allDesc=document.getElementById("description") .textContent
+function addMonster(name,age,description){
+ /* let allNames=document.getElementById("name") .textContent
+ let allAges=document.getElementById("age") .textContent
+  const allDesc=document.getElementById("description") .textContent*/
   const monsterObj={
-    name :e.target.name.value, 
-    age : e.target.age.value ,        
-    description : e.target.description.value                  
+    "name" :name, 
+    "age" : age,        
+    "description" : description                  
   }
 fetch("http://localhost:3000/monsters",{
    method :"POST",
@@ -45,13 +46,10 @@ fetch("http://localhost:3000/monsters",{
     "Content-Type" : "application/json",
     "accept" : "application/json"
    },
-   body :JSON.stringify(monsterObj)/*{
-     name :e.target.name.value, //`${allNames}` ,
-     age : e.target.age.value ,         //`${allAges}`,
-     description : e.target.description.value                   //`${allDesc}`
-   }*/
+   body :JSON.stringify(monsterObj)
+  })
+}/*
 })
 .then(res=>res.jon())
 .then(data=>console.log(data))
-}
-
+}*/
